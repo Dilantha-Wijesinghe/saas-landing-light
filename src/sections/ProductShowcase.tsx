@@ -7,16 +7,16 @@ export const ProductShowcase = () => {
   return (
     <section className="overflow-x-clip bg-gradient-to-b from-[#FFFFFF] to-[#D2DCFF] py-24">
       <div className="container">
-        <div className="mx-auto max-w-[540px]">
+        <div className="section-heading">
           <div className="flex justify-center">
             <div className="tag">Boost your productivity</div>
           </div>
 
-          <h2 className="mt-5 bg-gradient-to-b from-black to-[#001E80] bg-clip-text text-center text-3xl font-bold tracking-tighter text-transparent md:text-[54px] md:leading-[60px]">
+          <h2 className="section-title mt-5">
             A more effective way to track progress
           </h2>
 
-          <p className="mt-5 text-center text-[22px] leading-[30px] tracking-tight text-[#010D3E]">
+          <p className="section-description mt-5">
             Effortlessly turn your ideaas into a fully functional, responsive,
             SaaS website in just minutes with this template.
           </p>
