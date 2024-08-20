@@ -1,30 +1,48 @@
+"use client";
+
 import ArrowRight from "@/assets/arrow-right.svg";
 import cogImage from "@/assets/cog.png";
 import cylinderImage from "@/assets/cylinder.png";
 import noodleImage from "@/assets/noodle.png";
 import Image from "next/image";
+import {
+  motion as m,
+  useScroll,
+  useTransform,
+  useMotionValueEvent,
+} from "framer-motion";
+import { useRef } from "react";
 
 export const Hero = () => {
   const heroGradient =
     "bg-[radial-gradient(ellipse_200%_100%_at_bottom_left,#183EC2,#EAEEFE_100%)]";
 
+  const heroRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start end", "end start"],
+  });
+
+  const translateY = useTransform(scrollYProgress, [0, 1], [150, -150]);
+
   return (
     <section
-      className={`pt-8 pb-20 md:pt-5 md:pb-10 overflow-x-clip ${heroGradient}`}
+      ref={heroRef}
+      className={`overflow-x-clip pb-20 pt-8 md:pb-10 md:pt-5 ${heroGradient}`}
     >
       <div className="container">
-        <div className="md:flex items-center">
+        <div className="items-center md:flex">
           <div className="md:w-[478px]">
             <div className="tag">Version 2.0 is here</div>
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tighter bg-gradient-to-b from-black to-[#001E80] text-transparent bg-clip-text mt-6">
+            <h1 className="mt-6 bg-gradient-to-b from-black to-[#001E80] bg-clip-text text-5xl font-bold tracking-tighter text-transparent md:text-7xl">
               Pathway to productivity
             </h1>
-            <p className="text-xl text-[#010D3E] tracking-tight mt-6">
+            <p className="mt-6 text-xl tracking-tight text-[#010D3E]">
               Celebrate the joy of accomplishmentwith an app designed to track
               your progress, motivate your efforts, and celebrate your
               successes.
             </p>
-            <div className="flex gap-1 items-center mt-[30px]">
+            <div className="mt-[30px] flex items-center gap-1">
               <button className="btn btn-primary">Get for free</button>
               <button className="btn btn-text gap-1">
                 <span>Learn more</span>
@@ -33,25 +51,41 @@ export const Hero = () => {
             </div>
           </div>
 
-          <div className="mt-20 md:mt-0 md:h-[648px] md:flex-1 relative">
-            <Image
-              src={cogImage}
+          <div className="relative mt-20 md:mt-0 md:h-[648px] md:flex-1">
+            <m.img
+              src={cogImage.src}
               alt="Cog image"
-              className="md:absolute md:w-auto md:h-full md:max-w-none md:-left-6 lg:left-0"
+              className="md:absolute md:-left-6 md:h-full md:w-auto md:max-w-none lg:left-0"
+              animate={{
+                translateY: [-30, 30],
+              }}
+              transition={{
+                repeat: Infinity,
+                repeatType: "mirror",
+                duration: 3,
+                ease: "easeInOut",
+              }}
             />
-            <Image
-              src={cylinderImage}
+            <m.img
+              src={cylinderImage.src}
               alt="Cylinder image"
               width={220}
               height={220}
-              className="hidden md:block md:absolute -top-8 -left-32"
+              className="-left-32 -top-8 hidden md:absolute md:block"
+              style={{
+                translateY: translateY,
+              }}
             />
-            <Image
-              src={noodleImage}
+            <m.img
+              src={noodleImage.src}
               alt="Noodle image"
               width={220}
               height={220}
-              className="hidden lg:block absolute top-[524px] left-[448px] rotate-[30deg]"
+              className="absolute left-[448px] top-[524px] hidden rotate-[30deg] lg:block"
+              style={{
+                rotate: 30,
+                translateY: translateY,
+              }}
             />
           </div>
         </div>
